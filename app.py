@@ -4,6 +4,7 @@ import numpy as np
 import time
 import joblib
 import re
+import os
 from custom.functions import position_group, get_domain_zone
 
 app = Flask(__name__)
@@ -184,4 +185,5 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
