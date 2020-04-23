@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask #, request, jsonify
 # import pandas as pd
 # import numpy as np
 # import time
@@ -8,8 +8,8 @@ import os
 # from custom.functions import position_group, get_domain_zone
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-app.config['JSON_SORT_KEYS'] = False
+# app.config['JSON_AS_ASCII'] = False
+# app.config['JSON_SORT_KEYS'] = False
 
 # load model
 # clf = joblib.load('models/logistic_regression.joblib')
@@ -185,5 +185,6 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    # port = int(os.environ.get("PORT", 5000))
+    # app.run(host='0.0.0.0', port=port)
+    app.run()
