@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Tempus Dominus -->
+    {#    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>#}
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />#}
+
+    <title>DEVrepublik Loan Factory</title>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">DEVrepublik Loan Factory</h1>
+
+        <hr class="my-4">
+        <p>Our decision engine uses state of the art models and tools to assess your creditworthiness.</p>
+    </div>
+    <h1>Application form</h1>
+    <br>
+
+    <form method="POST" action="score" id="app_form" onsubmit="submit_form()">
+
+        <!-- Loan inforamtion -->
+
+        <div class="card">
+            <div class="card-header">Loan details</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="credit_amount">Amount</label>
+                            <span class="font-weight-bold text-primary ml-2" id="credit_amount_value">500</span>
+                            <input type="range" class="custom-range" min="500" max="4000" step="100" id="credit_amount"
+                                   name="credit_amount" value="500">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="credit_term">Term</label>
+                            <span class="font-weight-bold text-primary ml-2" id="credit_term_value">21</span>
+                            <input type="range" class="custom-range" min="1" max="28" step="1" id="credit_term"
+                                   name="credit_term" value="21">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="know_source">Where did you get info about our product?</label>
+                            <select class="form-control" id="know_source" name="know_source">
+                                <option value="BANNER">Saw a banner</option>
+                                <option value="BOARD">Saw a bigboard</option>
+                                <option value="FORUM">Read at a forum</option>
+                                <option value="FRIENDS">From friends</option>
+                                <option value="METRO">Saw in underground</option>
+                                <option value="PRESS" selected>Read in press</option>
+                                <option value="SEARCH">Discovered via Internet search</option>
+                                <option value="SN">Saw in a Social Network</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="loan_purpose">Loan purpose</label>
+                            <select class="form-control" id="loan_purpose" name="loan_purpose">
+                                <option value="BIGP" selected>Big purchase</option>
+                                <option value="CELEBRATION">Celebration</option>
+                                <option value="DEBT">Debt repayment</option>
+                                <option value="EDUCATION">Education</option>
+                                <option value="HEALTH">Treatment</option>
+                                <option value="RENT">Pay rent</option>
+                                <option value="REPAIR">Repairs</option>
+                                <option value="SMALLP">Smal purchase</option>
+                                <option value="TRAVELLING">Travel</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="promo_code">Promo code</label>
+                            <input type="text" class="form-control" id="promo_code" name="promo_code"
+                                   value="DEVrepublik">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="app_rank">Number of previous loans</label>
+                            <input type="text" class="form-control" id="app_rank" name="app_rank" value="1">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="app_count">Number of rejected apps before this loan</label>
+                            <input type="text" class="form-control" id="app_count" name="app_count" value="1">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Social inforamtion -->
+        <br>
+
+        <div class="card">
+            <div class="card-header">Social details</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="social_status">Social status</label>
+                            <select class="form-control" id="social_status" name="social_status">
+                                <option value="MATERNITY">Maternity</option>
+                                <option value="PENSIONER">Pensioner</option>
+                                <option value="SOCIAL_BENEFITS">Social benfits</option>
+                                <option value="STUDENT" selected>Student</option>
+                                <option value="NONE">None</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="family_status">Family status</label>
+                            <select class="form-control" id="family_status" name="family_status">
+                                <option value="DIVORCED">Divorced</option>
+                                <option value="LIVE_TOGETHER">Civil marriage</option>
+                                <option value="MARRIAGE" selected>Official marriage</option>
+                                <option value="SINGLE">Single</option>
+                                <option value="WIDOW">Widow(er)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="education">Education</label>
+                            <select class="form-control" id="education" name="education">
+                                <option value="USCH">Unfinished school</option>
+                                <option value="SCH">School</option>
+                                <option value="SSCH">Special school</option>
+                                <option value="UHIGH">Unfinished high</option>
+                                <option value="HIGH" selected>High</option>
+                                <option value="DEGREE">Phd or higher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="faculty">Faculty</label>
+                            <select class="form-control" id="faculty" name="faculty">
+                                <option value="CONSTRUCTION">Contruction</option>
+                                <option value="ECONOMY">Economics</option>
+                                <option value="FOOD_INDUSTRY">Food industry</option>
+                                <option value="HUMANITIES">Humanities</option>
+                                <option value="LAW">Law</option>
+                                <option value="MATH">Math</option>
+                                <option value="MEDICINE">Madicine</option>
+                                <option value="MILITARY">Military</option>
+                                <option value="SCIENCE">Science</option>
+                                <option value="TECHNICAL" selected>Technical</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="children16">Children under the age of 16</label>
+                            <input type="text" class="form-control" id="children16" name="children16" value="2">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="birthday">Birthday</label>
+                            <input type="date" class="form-control" id="birthday" name="birthday" value="1984-06-13">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="gender_radio">Gender</label>
+                            <div class="form-group" id="gender_radio">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="radio_male"
+                                           value="M">
+                                    <label class="form-check-label" for="radio_male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="radio_female"
+                                           value="F" checked>
+                                    <label class="form-check-label" for="radio_female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Documents and contacts -->
+        <br>
+
+        <div class="card">
+            <div class="card-header">Contacts and Documents</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="passport_type_radio">Passport type</label>
+                            <div class="form-group" id="passport_type_radio">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="passport_type"
+                                           id="radio_passport" value="PASSPORT">
+                                    <label class="form-check-label" for="radio_passport">Passport</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="passport_type" id="radio_idcard"
+                                           value="IDCARD" checked>
+                                    <label class="form-check-label" for="radio_idcard">ID card</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="passport_date">Passport issue date</label>
+                            <input type="date" class="form-control" id="passport_date" name="passport_date"
+                                   value="2016-04-01">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="mphone">Mobile phone</label>
+                            <input type="text" class="form-control" id="mphone" name="mphone" value="380187479771">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="email">Mobile phone</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   value="data.science@devrepublik.ua">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="cp_relation">Contact person relationship</label>
+                            <select class="form-control" id="cp_relation" name="cp_relation">
+                                <option value="CHILDREN">Children</option>
+                                <option value="COLLEAGUES">Colleagues</option>
+                                <option value="FRIENDS">Friends</option>
+                                <option value="NEIGHBORS" selected>Neighbors</option>
+                                <option value="PARENTS">Parents</option>
+                                <option value="RELATIVES">Relatives</option>
+                                <option value="SIBLINGS">Siblings</option>
+                                <option value="SPOUSE">Spouse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="cp_phone">Mobile phone</label>
+                            <input type="text" class="form-control" id="cp_phone" name="cp_phone" value="380999887722">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Employment -->
+        <br>
+
+        <div class="card">
+            <div class="card-header">Employment</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_type">Employment type</label>
+                            <select class="form-control" id="emp_type" name="emp_type">
+                                <option value="EMPLOYMENT_CENTER">Employment center</option>
+                                <option value="OFFICIAL" selected>Official</option>
+                                <option value="OWNER">owner of a business</option>
+                                <option value="SPD">Private entrepreneur</option>
+                                <option value="UNEMPLOYED">Unemployed</option>
+                                <option value="UNOFFICIAL">Unofficial employment</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_field">Employment type</label>
+                            <select class="form-control" id="emp_field" name="emp_field">
+                                <option value="AGRICULTURE" selected>AGRICULTURE</option>
+                                <option value="CHEMISTRY">CHEMISTRY</option>
+                                <option value="CONSTRUCTION">CONSTRUCTION</option>
+                                <option value="EDUCATION">EDUCATION</option>
+                                <option value="ELECTRICITY">ELECTRICITY</option>
+                                <option value="ENTERTAINMENT">ENTERTAINMENT</option>
+                                <option value="FINANCE">FINANCE</option>
+                                <option value="FISHING">FISHING</option>
+                                <option value="FOOD_INDUSTRY">FOOD INDUSTRY</option>
+                                <option value="FORESTRY">FORESTRY</option>
+                                <option value="HOTEL_BUSINESS">HOTEL BUSINESS</option>
+                                <option value="HOUSEHOLD">HOUSEHOLD</option>
+                                <option value="IT">IT</option>
+                                <option value="LIGHT_INDUSTRY">LIGHT INDUSTRY</option>
+                                <option value="MACHINERY_MANUFACTURE">MACHINERY MANUFACTURE</option>
+                                <option value="MARKETING">MARKETING</option>
+                                <option value="MEDICINE">MEDICINE</option>
+                                <option value="MILITARY">MILITARY</option>
+                                <option value="MINING">MINING</option>
+                                <option value="PROCESSING_INDUSTRY">PROCESSING INDUSTRY</option>
+                                <option value="REAL_ESTATE">REAL ESTATE</option>
+                                <option value="SCIENCE">SCIENCE</option>
+                                <option value="SPORT">SPORT</option>
+                                <option value="STATE_EMPLOYEE">STATE EMPLOYEE</option>
+                                <option value="TOURISM">TOURISM</option>
+                                <option value="TRADE">TRADE</option>
+                                <option value="TRANSPORT">TRANSPORT</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_edrpou">Employer EDRPOU</label>
+                            <input type="text" class="form-control" id="emp_edrpou" name="emp_edrpou" value="39307323">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_region">Field of economy</label>
+                            <select class="form-control" id="emp_region" name="emp_region">
+                                <option value="Івано-Франківська" selected>Івано-Франківська</option>
+                                <option value='ВЕЗ "Крим"'>ВЕЗ "Крим"</option>
+                                <option value="Волинська">Волинська</option>
+                                <option value="Вінницька">Вінницька</option>
+                                <option value="Дніпропетровська">Дніпропетровська</option>
+                                <option value="Донецька">Донецька</option>
+                                <option value="Житомирська">Житомирська</option>
+                                <option value="Закарпатська">Закарпатська</option>
+                                <option value="Запорізька">Запорізька</option>
+                                <option value="Київ">Київ</option>
+                                <option value="Київська">Київська</option>
+                                <option value="Кіровоградська">Кіровоградська</option>
+                                <option value="Луганська">Луганська</option>
+                                <option value="Львівська" selected>Львівська</option>
+                                <option value="Миколаївська">Миколаївська</option>
+                                <option value="Одеська">Одеська</option>
+                                <option value="Полтавська">Полтавська</option>
+                                <option value="Рівенська">Рівенська</option>
+                                <option value="Севастополь">Севастополь</option>
+                                <option value="Сумська">Сумська</option>
+                                <option value="Тернопільська">Тернопільська</option>
+                                <option value="Харківська">Харківська</option>
+                                <option value="Херсонська">Херсонська</option>
+                                <option value="Хмельницька">Хмельницька</option>
+                                <option value="Черкаська">Черкаська</option>
+                                <option value="Чернівецька">Чернівецька</option>
+                                <option value="Чернігівська">Чернігівська</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_pcode">Employer's postal code</label>
+                            <input type="text" class="form-control" id="emp_pcode" name="emp_pcode" value="01032">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_position">Position</label>
+                            <input type="text" class="form-control" id="emp_position" name="emp_position"
+                                   value="Водила таксо">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="emp_phone">Employer's phone</label>
+                            <input type="text" class="form-control" id="emp_phone" name="emp_phone"
+                                   value="380217347224">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Addresses -->
+        <br>
+
+        <div class="card">
+            <div class="card-header">Addresses</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="reg_region">Region of registration</label>
+                            <select class="form-control" id="reg_region" name="reg_region">
+                                <option value="Івано-Франківська">Івано-Франківська</option>
+                                <option value='ВЕЗ "Крим"'>ВЕЗ "Крим"</option>
+                                <option value="Волинська">Волинська</option>
+                                <option value="Вінницька">Вінницька</option>
+                                <option value="Дніпропетровська">Дніпропетровська</option>
+                                <option value="Донецька">Донецька</option>
+                                <option value="Житомирська">Житомирська</option>
+                                <option value="Закарпатська">Закарпатська</option>
+                                <option value="Запорізька">Запорізька</option>
+                                <option value="Київ">Київ</option>
+                                <option value="Київська">Київська</option>
+                                <option value="Кіровоградська">Кіровоградська</option>
+                                <option value="Луганська">Луганська</option>
+                                <option value="Львівська" selected>Львівська</option>
+                                <option value="Миколаївська">Миколаївська</option>
+                                <option value="Одеська">Одеська</option>
+                                <option value="Полтавська" selected>Полтавська</option>
+                                <option value="Рівенська">Рівенська</option>
+                                <option value="Севастополь">Севастополь</option>
+                                <option value="Сумська">Сумська</option>
+                                <option value="Тернопільська">Тернопільська</option>
+                                <option value="Харківська">Харківська</option>
+                                <option value="Херсонська">Херсонська</option>
+                                <option value="Хмельницька">Хмельницька</option>
+                                <option value="Черкаська">Черкаська</option>
+                                <option value="Чернівецька">Чернівецька</option>
+                                <option value="Чернігівська">Чернігівська</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="reg_pcode">Registration address postal code</label>
+                            <input type="text" class="form-control" id="reg_pcode" name="reg_pcode" value="03164">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="reg_status">Status of property at registration address</label>
+                            <select class="form-control" id="reg_status" name="reg_status">
+                                <option value="EMPLOYER">EMPLOYER</option>
+                                <option value="FRIENDS">FRIENDS</option>
+                                <option value="OWNER" selected>OWNER</option>
+                                <option value="RELATIVES">RELATIVES</option>
+                                <option value="RENT">RENT</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="reg_addr_date">Date of registration at address</label>
+                            <input type="date" class="form-control" id="reg_addr_date" name="reg_addr_date"
+                                   value="1994-01-01">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="liv_pcode">Postal code at living address</label>
+                            <input type="text" class="form-control" id="liv_pcode" name="liv_pcode" value="04205">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="liv_status">Status of property at living address</label>
+                            <select class="form-control" id="liv_status" name="liv_status">
+                                <option value="EMPLOYER" selected>EMPLOYER</option>
+                                <option value="FRIENDS">FRIENDS</option>
+                                <option value="OWNER">OWNER</option>
+                                <option value="RELATIVES">RELATIVES</option>
+                                <option value="RENT">RENT</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group form-check">
+                            <input type="hidden" name="liv_equal" value="N">
+                            <input type="checkbox" class="form-check-input" id="liv_equal" name="liv_equal" value="Y">
+                            <label class="form-check-label" for="liv_equal">Registration and living addressees are the
+                                same</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Income and expenses -->
+        <br>
+
+        <div class="card">
+            <div class="card-header">Income and expenditures</div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="income_period">Income period</label>
+                            <select class="form-control" id="income_period" name="income_period">
+                                <option value="HUSBAND_WIFE_WORKS" selected>Husband or wife works</option>
+                                <option value="PARENTS_HELP">Parents' help</option>
+                                <option value="PENSION">Pension</option>
+                                <option value="SCHOLARSHIP">Scholarship</option>
+                                <option value="SOCIAL_ASSISTANCE">Social payments</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="income_source">Income period</label>
+                            <select class="form-control" id="income_source" name="income_source">
+                                <option value="DAILY">Daily</option>
+                                <option value="MONTHLY" selected>Monthly</option>
+                                <option value="TWO_TPM">Two timees per month</option>
+                                <option value="WEEKLY">Weekly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="income_next">Date of next income</label>
+                            <input type="date" class="form-control" id="income_next" name="income_next"
+                                   value="2020-05-03">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="income">Income</label>
+                            <input type="text" class="form-control" id="income" name="income" value="1000">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exp_loans">Current loans payments</label>
+                            <input type="text" class="form-control" id="exp_loans" name="exp_loans" value="300">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="exp_all">Date of next income</label>
+                            <input type="text" class="form-control" id="exp_all" name="exp_all" value="1000">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+
+        <input type="hidden" id="start_time" name="start_time" value="">
+        <input type="hidden" id="end_time" name="end_time" value="">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+
+        // set application start_time
+        now = new Date();
+        today = [now.getFullYear(), now.getMonth(), now.getDate()].join("-") + 'T'
+            + [now.getHours(), now.getMinutes(), now.getSeconds()].join(":") + '.'
+            + now.getMilliseconds();
+        $('#start_time').val(today);
+
+        const $credit_amount_value = $('#credit_amount_value');
+        const $credit_amount = $('#credit_amount');
+        $credit_amount_value.html($credit_amount.val());
+        $credit_amount.on('input change', () => {
+            $credit_amount_value.html($credit_amount.val());
+        });
+
+        const $credit_term_value = $('#credit_term_value');
+        const $credit_term = $('#credit_term');
+        $credit_term_value.html($credit_term.val());
+        $credit_term.on('input change', () => {
+            $credit_term_value.html($credit_term.val());
+        });
+
+        const $app_form = $('#app_form');
+        $app_form.on('submit', () => {
+            // set application end_time
+            now = new Date();
+            today = [now.getFullYear(), now.getMonth(), now.getDate()].join("-") + 'T'
+                + [now.getHours(), now.getMinutes(), now.getSeconds()].join(":") + '.'
+                + now.getMilliseconds();
+            $('#end_time').val(today);
+        });
+    });
+</script>
+
+</body>
+</html>
